@@ -1,0 +1,32 @@
+# --- dependencies ---
+node_modules/
+# `mops install` re-fetches these; mops.lock is committed
+.mops/
+
+# --- build output ---
+# backend.wasm, compiled by moc
+build/
+# vite build output
+frontend/dist/
+# only if the backend is ever rewritten in Rust
+backend/target/
+# copied from @thebes/sdk by `npm run sync-sdk`
+frontend/public/boundary.js
+
+# NOTE: frontend/asset_canister.wasm is NOT ignored on purpose. It ships with
+# `thebes-deploy new` and nothing in this project rebuilds it, so the repo has
+# to carry it or a fresh clone cannot deploy the frontend.
+
+# --- deploy state written by thebes-deploy ---
+.thebes/
+
+# --- secrets: identities and API keys never belong in a repo ---
+*.seed
+*.secret.json
+.env
+.env.*
+
+# --- misc ---
+*.local
+*.log
+.DS_Store

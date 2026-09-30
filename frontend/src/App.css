@@ -1,0 +1,354 @@
+/* Simple styling. A centred column, a card per poll, a bar per option. */
+
+:root {
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --text: #1c2024;
+  --muted: #6b7280;
+  --line: #e3e6ea;
+  --accent: #8b4d32;
+  --accent-soft: #f1e3da;
+  --good: #15803d;
+  --bad: #b91c1c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 32px 16px;
+  background: linear-gradient(135deg, #f6f7f9 0%, #f6eee8 100%);
+  color: var(--text);
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+/* The centred column everything sits in. */
+main {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.top {
+  margin-bottom: 8px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.sub {
+  margin: 4px 0 16px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+code {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 13px;
+}
+
+/* ---- your identity ---- */
+
+.identity {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.identity code {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---- the form ---- */
+
+form {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+  color: inherit;
+  background: var(--bg);
+}
+
+input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+/* Buttons sitting side by side. */
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+.option-input button {
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 9px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  filter: brightness(0.94);
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+/* The quieter buttons: Copy / Add option / Close poll. */
+button.ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--muted);
+  font-weight: 400;
+}
+
+button.ghost.danger:hover {
+  border-color: var(--bad);
+  color: var(--bad);
+}
+
+button.small {
+  padding: 4px 10px;
+  font-size: 13px;
+}
+
+/* ---- the list of polls ---- */
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+li {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.poll-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.poll-head h3 {
+  margin: 0;
+  font-size: 17px;
+  overflow-wrap: anywhere;
+}
+
+.badge {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.meta {
+  margin: 2px 0 12px;
+  font-size: 13px;
+}
+
+/* One option = one button with a result bar filling it from the left. */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+button.option {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  overflow: hidden;
+  text-align: left;
+  background: var(--bg);
+  border-color: var(--line);
+  color: var(--text);
+  font-weight: 400;
+}
+
+button.option:hover:not(:disabled) {
+  border-color: var(--accent);
+  filter: none;
+}
+
+button.option:disabled {
+  opacity: 1;
+}
+
+button.option.picked {
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.bar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--accent-soft);
+  transition: width 0.4s ease;
+}
+
+.option-text,
+.count {
+  position: relative; /* above the bar */
+}
+
+.option-text {
+  overflow-wrap: anywhere;
+}
+
+.count {
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.poll-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.verified {
+  color: var(--good);
+}
+
+.broken {
+  color: var(--bad);
+  font-weight: 600;
+}
+
+.hint {
+  margin: 6px 0 0;
+  font-size: 13px;
+}
+
+/* ---- messages ---- */
+
+.empty {
+  text-align: center;
+  padding: 32px 16px;
+  background: var(--card);
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  margin-bottom: 24px;
+}
+
+.empty-title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.notice,
+.error {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.notice {
+  background: #e7f6ec;
+  color: var(--good);
+}
+
+.error {
+  background: #fdecec;
+  color: var(--bad);
+}
+
+footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  font-size: 13px;
+}
+
+footer p {
+  margin: 2px 0;
+}
+
+/* Dark mode, for free, if the machine asks for it. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16181c;
+    --card: #1e2126;
+    --text: #e8eaed;
+    --muted: #9aa1ab;
+    --line: #2e333a;
+    --accent: #d4a02a;
+    --accent-soft: #3a3120;
+    --good: #6fcf8f;
+    --bad: #f6a9a9;
+  }
+
+  body {
+    background: #16181c;
+  }
+
+  button {
+    color: #16181c;
+  }
+
+  .notice {
+    background: #1b3324;
+  }
+
+  .error {
+    background: #3a1d1d;
+  }
+}

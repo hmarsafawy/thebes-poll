@@ -1,0 +1,28 @@
+# thebes-poll — one-vote-per-identity polls.
+# The backend cid must also be BACKEND in frontend/src/App.tsx.
+
+[project]
+name = "thebes-poll"
+default_network = "wan-experimental"
+chain_id = 2026
+
+[networks.wan-experimental]
+gateway = "https://memphis.mercaturaforum.com"
+validators = []
+routing = "smart"
+
+[canisters.backend]
+type = "backend-motoko"
+cid = 151992746813754
+wasm = "build/backend.wasm"
+# Explicit moc path: /usr/bin/moc can be Qt's Meta-Object Compiler, not Motoko.
+# `--legacy-persistence` keeps the polls and votes across `thebes-deploy upgrade`.
+build = 'mops install && mkdir -p build && "$HOME/.cache/mops/moc/1.4.1/moc" --legacy-persistence $(mops sources) -o build/backend.wasm backend/Backend.mo'
+
+[canisters.frontend]
+type = "frontend"
+cid = 270806450139109
+wasm = "frontend/asset_canister.wasm"
+build = "cd frontend && npm install && npm run build"
+bundle = "frontend/dist"
+health_check_url = "/index.html"
